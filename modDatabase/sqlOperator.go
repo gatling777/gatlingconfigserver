@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"errors"
+	"fmt"
 
 	"github.com/tursodatabase/libsql-client-go/libsql"
 )
@@ -20,6 +21,7 @@ func newSqlDbOpt() *CSqlDbOpt {
 func (pInst *CSqlDbOpt) connect(dbUrl, token string) error {
 	connector, err := libsql.NewConnector(dbUrl, libsql.WithAuthToken(token))
 	if err != nil {
+		fmt.Println("db connect error: ", err)
 		return err
 	}
 	pInst.dbConnector = &connector

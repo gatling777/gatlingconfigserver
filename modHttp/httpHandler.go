@@ -1,7 +1,11 @@
 package modHttp
 
 import (
+	"configServer/modDatabase"
 	"configServer/modUtility"
+	"fmt"
+	"io"
+
 	//"io"
 	"net/http"
 	//"github.com/go-chi/chi/v5"
@@ -48,26 +52,46 @@ func checkXApiKey(w http.ResponseWriter, r *http.Request) bool {
 	return true
 }
 
-// func handlerInfoPut(w http.ResponseWriter, r *http.Request) {
-// 	if !checkXApiKey(w, r) {
-// 		return
-// 	}
-// 	idStr := chi.URLParam(r, "appid")
-// 	logStr, err := io.ReadAll(r.Body)
-// 	if err != nil {
-// 		w.WriteHeader(http.StatusNoContent)
-// 		w.Write([]byte("read content error"))
-// 		return
-// 	}
-// 	err = modLogMongodb.GetSingleLog().AddLogInfo(string(logStr), idStr)
-// 	if err != nil {
-// 		w.WriteHeader(http.StatusBadGateway)
-// 		w.Write([]byte("add log error: " + err.Error()))
-// 		return
-// 	}
-// 	w.WriteHeader(http.StatusOK)
-// 	w.Write([]byte("done"))
-// }
+func handlerGetConfig(w http.ResponseWriter, r *http.Request) {
+	xkey := r.Header.Get("X_API_KEY")
+	if xkey == "" {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("ERROR"))
+		return
+	}
+	config := modDatabase.DB_GetConfig(xkey)
+	w.Write([]byte(config))
+
+}
+func handlerSetConfig(w http.ResponseWriter, r *http.Request) {
+	xkey := r.Header.Get("X_API_KEY")
+	if xkey == "" {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("ERROR"))
+		return
+	}
+	if xkey != modUtility.G_XApiKey {
+		w.WriteHeader(http.StatusUnauthorized)
+		w.Write([]byte("WRONG"))
+		return
+	}
+	key2 := r.Header.Get("X_API_KEY2")
+	data2, err := io.ReadAll(r.Body)
+	if err != nil {
+		w.WriteHeader(http.StatusNotAcceptable)
+		w.Write([]byte("WRONG2"))
+		return
+	}
+
+	err = modDatabase.DB_InputConfig(key2, string(data2))
+	if err != nil {
+		fmt.Println(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("WRONG23"))
+		return
+	}
+	w.Write([]byte("OK"))
+}
 
 // func handlerErrorPut(w http.ResponseWriter, r *http.Request) {
 // 	if !checkXApiKey(w, r) {

@@ -22,8 +22,8 @@ func getSingleChi() *CChi {
 func (pInst *CChi) Initialize() error {
 	r := chi.NewRouter()
 	r.Get("/", handlerHomepage)
-	//r.Put("/info/{appid}", handlerInfoPut)
-	//r.Put("/error/{appid}", handlerErrorPut)
+	r.Get("/getconfig", handlerGetConfig)
+	r.Put("/setconfig", handlerSetConfig)
 	pInst.router = r
 
 	return nil

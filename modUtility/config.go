@@ -39,6 +39,7 @@ func config_Initialize() error {
 	if G_DBUrl == "" {
 		return errors.New("database url empty")
 	}
+
 	G_DBToken = os.Getenv(CG_Key_DBToken)
 	if G_DBToken == "" {
 		return errors.New("database token empty")

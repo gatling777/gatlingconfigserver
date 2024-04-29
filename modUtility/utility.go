@@ -8,6 +8,11 @@ func Utility_initialize() error {
 		fmt.Println("Utility log initialize error: ", err)
 		return nil
 	}
+	err = config_Initialize()
+	if err != nil {
+		fmt.Println("Utility config initialize error: ", err)
+		return nil
+	}
 
 	return nil
 }

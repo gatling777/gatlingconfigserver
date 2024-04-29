@@ -28,6 +28,8 @@ func (pInst *CTableConfig) initialize() error {
 	err := getSingleTurso().connect()
 	if err != nil {
 		return err
+	} else {
+		fmt.Println("db connect successful")
 	}
 	err = pInst.createTable()
 
@@ -45,6 +47,12 @@ func (pInst *CTableConfig) createTable() error {
 
 func (pInst *CTableConfig) Insert(name, text string) error {
 	sql := fmt.Sprintf("INSERT INTO configServer(Name, Text1) VALUES('%s', '%s');", name, text)
+	err := getSingleTurso().execsql(sql)
+
+	return err
+}
+func (pInst *CTableConfig) Update(name, text string) error {
+	sql := fmt.Sprintf("UPDATE configServer set Text1 = '%s' where Name = '%s');", text, name)
 	err := getSingleTurso().execsql(sql)
 
 	return err
