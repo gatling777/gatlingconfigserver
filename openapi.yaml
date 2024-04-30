@@ -32,8 +32,9 @@ paths:
       description: GetConfig
       tags:
         - getconfig
-      security:
-        - X-API-KEY: []
+      parameters:
+        - name: X-API-KEY
+          in: header
       responses:
         '200':
           description: Successful response
@@ -49,9 +50,11 @@ paths:
       description: PutConfig
       tags:
         - putconfig
-      security:
-        - X-API-KEY: []
-        - X-API-KEY2: []
+      parameters:
+        - name: X-API-KEY
+          in: header
+        - name: X-API-KEY2
+          in: header
       responses:
         '200':
           description: Successful response
