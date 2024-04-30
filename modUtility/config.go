@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // x api key: for operator only;
@@ -21,29 +22,39 @@ var G_DBUrl = ""
 var G_DBToken = ""
 
 func config_Initialize() error {
-	G_XApiKey = os.Getenv(CG_Key_xApiKey)
+	G_XApiKey = getEnvKey(CG_Key_xApiKey)
 	if G_XApiKey == "" {
 		G_XApiKey = GD_Default_XApiKey
 	}
-	portStr := os.Getenv(CG_Key_HttpPort)
-	if portStr == "" {
+	portStr := getEnvKey(CG_Key_HttpPort)
+	if portStr != "" {
 		port, err := strconv.Atoi(portStr)
-		if err != nil {
+		if err == nil {
 			G_HttpPort = port
 		}
 	}
 	if G_HttpPort < 10 {
 		G_HttpPort = GD_Default_HttpPort
 	}
-	G_DBUrl = os.Getenv(CG_Key_DBUrl)
+	G_DBUrl = getEnvKey(CG_Key_DBUrl)
 	if G_DBUrl == "" {
 		return errors.New("database url empty")
 	}
 
-	G_DBToken = os.Getenv(CG_Key_DBToken)
+	G_DBToken = getEnvKey(CG_Key_DBToken)
 	if G_DBToken == "" {
 		return errors.New("database token empty")
 	}
 
 	return nil
+}
+
+func getEnvKey(key string) string {
+	portStr := os.Getenv(key)
+	portStr = strings.TrimSpace(portStr)
+	portStr = strings.Trim(portStr, "\r")
+	portStr = strings.Trim(portStr, "\n")
+	portStr = strings.Trim(portStr, "\r")
+
+	return portStr
 }
