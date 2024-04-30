@@ -1,0 +1,58 @@
+openapi: "3.0.0"
+info:
+  title: Go Config Service
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: Home page
+      description: HomePage
+      tags:
+        - homepage
+      parameters:
+        - name: name
+          in: query
+          description: Name of the person to greet
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+      deprecated: false
+      security: []
+    
+  /getconfig:
+    get:
+      summary: get config
+      description: GetConfig
+      tags:
+        - getconfig
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+      deprecated: false
+      security: []
+  /setconfig:
+    put:
+      summary: put config
+      description: PutConfig
+      tags:
+        - putconfig
+      responses:
+        '200':
+          description: Successful response
+          content:
+            text/plain:
+              schema:
+                type: string
+      deprecated: false
+      security: []
