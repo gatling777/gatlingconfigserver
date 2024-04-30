@@ -35,7 +35,7 @@ paths:
       parameters:
         - name: X-API-KEY
           in: header
-          description: Name of the key
+          description: appid
           required: false
           schema:
             type: string
@@ -54,6 +54,19 @@ paths:
       description: PutConfig
       tags:
         - putconfig
+      parameters:
+        - name: X-API-KEY
+          in: header
+          description: key fix
+          required: false
+          schema:
+            type: string
+        - name: X-API-KEY2
+          in: header
+          description: app id
+          required: false
+          schema:
+            type: string
       responses:
         '200':
           description: Successful response
