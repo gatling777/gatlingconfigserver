@@ -53,6 +53,7 @@ func checkXApiKey(w http.ResponseWriter, r *http.Request) bool {
 }
 
 func handlerGetConfig(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(r.Header)
 	xkey := r.Header.Get("X_API_KEY")
 	if xkey == "" {
 		w.WriteHeader(http.StatusUnauthorized)
