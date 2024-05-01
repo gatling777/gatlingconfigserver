@@ -42,7 +42,7 @@ func handlerHomepage(w http.ResponseWriter, r *http.Request) {
 }
 */
 func checkXApiKey(w http.ResponseWriter, r *http.Request) bool {
-	xkey := r.Header.Get("X_API_KEY")
+	xkey := r.Header.Get("X-API-KEY")
 	if xkey != modUtility.G_XApiKey {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte("invalid api key provided"))
@@ -54,7 +54,7 @@ func checkXApiKey(w http.ResponseWriter, r *http.Request) bool {
 
 func handlerGetConfig(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.Header)
-	xkey := r.Header.Get("X_API_KEY")
+	xkey := r.Header.Get("X-API-KEY")
 	if xkey == "" {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte("ERROR"))
@@ -65,7 +65,7 @@ func handlerGetConfig(w http.ResponseWriter, r *http.Request) {
 
 }
 func handlerSetConfig(w http.ResponseWriter, r *http.Request) {
-	xkey := r.Header.Get("X_API_KEY")
+	xkey := r.Header.Get("X-API-KEY")
 	if xkey == "" {
 		w.WriteHeader(http.StatusUnauthorized)
 		w.Write([]byte("ERROR"))
@@ -76,7 +76,7 @@ func handlerSetConfig(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("WRONG"))
 		return
 	}
-	key2 := r.Header.Get("X_API_KEY2")
+	key2 := r.Header.Get("X-API-KEY2")
 	data2, err := io.ReadAll(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusNotAcceptable)
