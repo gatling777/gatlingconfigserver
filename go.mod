@@ -3,6 +3,7 @@ module configServer
 go 1.22.1
 
 require (
+	github.com/gatlinglab/libgatlingconfig v0.0.1
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/tursodatabase/libsql-client-go v0.0.0-20240416075003-747366ff79c4
 )

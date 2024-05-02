@@ -1,13 +1,15 @@
 package modUtility
 
 import (
-	"errors"
+	"github.com/gatlinglab/libgatlingconfig"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
 )
+
+const CG_APPName = "configserver"
 
 // x api key: for operator only;
 const CG_Key_xApiKey = "XAPIKEY"
@@ -27,6 +29,10 @@ var G_AppPath = ""
 var G_LocalDataPath = ""
 
 func config_Initialize() error {
+	err := libgatlingconfig.GetSingleGatlingConfig().Initialize(CG_APPName)
+	if err != nil {
+		return err
+	}
 	file, _ := exec.LookPath(os.Args[0])
 	path, _ := filepath.Abs(file)
 	index := strings.LastIndex(path, string(os.PathSeparator))
