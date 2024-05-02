@@ -1,0 +1,5 @@
+export HTTPPORT=9090
+export XAPIKEY=aaXAPIKEYaa
+export DBURL=libsql://serverconfig-gitworkone.turso.io
+export DBTOKEN=eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3MTQzNDY4OTMsImlkIjoiNGIxMzM2YzgtYTEyMi00NTdmLTliMjgtZjkxYzAwYWFkYjBmIn0.zEPsuQcWd3m2xZ3fJnMGt6bQ0RI-EFPGDvDxlJ_WKO0C1k3vgkfUvYs4O751qmpDBNYe_5DFhdmSryqf4cxBBg
+./configServer
