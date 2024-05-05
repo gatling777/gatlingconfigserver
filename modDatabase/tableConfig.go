@@ -21,7 +21,7 @@ func getSingleTableConfig() *CTableConfig {
 
 const sql_create_testproject = `CREATE TABLE if not exists configServer (
 	Name CHAR(50) PRIMARY KEY,
-	Text1 TEXT,
+	Text1 TEXT
  );`
 
 func (pInst *CTableConfig) initialize() error {
